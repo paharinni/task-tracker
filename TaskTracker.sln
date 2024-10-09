@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker", "TaskTracker\TaskTracker.csproj", "{12C9130A-B429-45BC-BE53-044D2A54DAE8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12C9130A-B429-45BC-BE53-044D2A54DAE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C9130A-B429-45BC-BE53-044D2A54DAE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C9130A-B429-45BC-BE53-044D2A54DAE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C9130A-B429-45BC-BE53-044D2A54DAE8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
