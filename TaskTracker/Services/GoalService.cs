@@ -21,11 +21,15 @@ public class GoalService : IGoalService
 
     public Goal GetGoalById(int id)
     {
-        return _goals.FirstOrDefault(goal => goal.Id == id) ?? throw new InvalidOperationException();
+        return _goals.FirstOrDefault(goal => goal.Id == id);
     }
 
     public void AddGoal(Goal goal)
     {
+        while (_goals.Any(g => g.Id == goal.Id))
+        {
+            goal.Id++;
+        }
         _goals.Add(goal);
         SaveGoalsToFile();
     }
@@ -77,7 +81,7 @@ public class GoalService : IGoalService
             catch (Exception ex) 
             {
                 Console.WriteLine($"Error loading goals: {ex.Message}");
-                _goals = new List<Goal>(); // Initialize an empty list on failure
+                _goals = new List<Goal>();
             }
         }
     }
