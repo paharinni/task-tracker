@@ -8,7 +8,7 @@ public abstract class Program
     private static void Main(string[] args)
     {
         var goalService = new GoalService();
-        bool running = true;
+        var running = true;
 
         while (running)
         {
@@ -98,6 +98,7 @@ public abstract class Program
                 
             //TODO add exceptions handling
             //TODO Add JSON to store data
+            
         }
     }
 }
