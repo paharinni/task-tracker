@@ -1,4 +1,4 @@
-using TaskTracker.Models;
+using TaskTracker.Domain.Entities;
 
 namespace TaskTracker.Interfaces;
 

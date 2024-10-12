@@ -1,4 +1,6 @@
-namespace TaskTracker.Models;
+using TaskTracker.Domain.Enums;
+
+namespace TaskTracker.Domain.Entities;
 
 public class Goal
 {

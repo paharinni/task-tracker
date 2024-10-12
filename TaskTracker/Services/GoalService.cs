@@ -1,6 +1,6 @@
 using System.Text.Json;
+using TaskTracker.Domain.Entities;
 using TaskTracker.Interfaces;
-using TaskTracker.Models;
 
 namespace TaskTracker.Services;
 
@@ -11,7 +11,7 @@ public class GoalService : IGoalService
 
     public GoalService()
     {
-        LoadGoalsFromFile();
+        LoadGoalsFromFileAsync();
     }
     
     public List<Goal> GetAllGoals()
@@ -24,17 +24,13 @@ public class GoalService : IGoalService
         return _goals.FirstOrDefault(goal => goal.Id == id);
     }
 
-    public void AddGoal(Goal goal)
+    public async void AddGoal(Goal goal)
     {
-        while (_goals.Any(g => g.Id == goal.Id))
-        {
-            goal.Id++;
-        }
         _goals.Add(goal);
-        SaveGoalsToFile();
+        await SaveGoalsToFileAsync();
     }
 
-    public void UpdateGoal(int id, Goal updatedGoal)
+    public async void UpdateGoal(int id, Goal updatedGoal)
     {
         Goal goal = GetGoalById(id);
 
@@ -46,22 +42,22 @@ public class GoalService : IGoalService
             goal.CreatedAt = updatedGoal.CreatedAt;
             goal.UpdatedAt = updatedGoal.UpdatedAt;
             
-            SaveGoalsToFile();
+            await SaveGoalsToFileAsync();
         }
     }
 
-    public void DeleteGoal(int id)
+    public async void DeleteGoal(int id)
     {
         _goals.RemoveAll(goal => goal.Id == id);
-        SaveGoalsToFile();
+        await SaveGoalsToFileAsync();
     }
     
-    private void SaveGoalsToFile()
+    private async Task SaveGoalsToFileAsync()
     {
         try
         {
             string json = JsonSerializer.Serialize(_goals, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(_jsonFilePath, json);
+            await File.WriteAllTextAsync(_jsonFilePath, json);
         }
         catch (Exception ex)
         {
@@ -69,13 +65,13 @@ public class GoalService : IGoalService
         }
     }
 
-    private void LoadGoalsFromFile()
+    private async Task LoadGoalsFromFileAsync()
     {
         if (File.Exists(_jsonFilePath))
         {
             try
             {
-                string json = File.ReadAllText(_jsonFilePath);
+                string json = await File.ReadAllTextAsync(_jsonFilePath);
                 _goals = JsonSerializer.Deserialize<List<Goal>>(json) ?? new List<Goal>();
             }
             catch (Exception ex) 
@@ -83,6 +79,10 @@ public class GoalService : IGoalService
                 Console.WriteLine($"Error loading goals: {ex.Message}");
                 _goals = new List<Goal>();
             }
+        }
+        else
+        {
+            _goals = new List<Goal>();
         }
     }
 }
